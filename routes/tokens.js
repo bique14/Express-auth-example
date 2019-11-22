@@ -7,6 +7,7 @@ const jwt = require('jsonwebtoken')
 
 const signature = '1m_s3cure'
 
+
 const createToken = (user) =>
   jwt.sign(
     { userId: user.username },
@@ -15,18 +16,20 @@ const createToken = (user) =>
   )
 
 
-const createTokenRoute = (req, res) => {
+const createTokenRoute = (req, res, next) => {
   const credentials = req.body
   const user = findUser.byCredentials(credentials)
-  console.log('user', user)
+  console.log('[tokens] user', user)
 
   if (user) {
     const token = createToken(user)
-    console.log('token', token)
-    res.status(200)
-    res.send(`I am user ${user.username}\n${token}`)
+    // res.token = token
+    console.log('[tokens]', token)
+    res.status(201)
+    res.send(token)
+    next()
   } else {
-    res.sendStatus(401)
+    res.sendStatus(422)
   }
 }
 

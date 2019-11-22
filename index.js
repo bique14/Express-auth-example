@@ -1,20 +1,15 @@
-const tokenRouter = require('./routes/tokens')
 const basicAuth = require('./lib/basic-auth')
+const tokenAuth = require('./lib/token-auth')
 const findUser = require('./lib/find-user')
+const tokenRouter = require('./routes/tokens')
 
 const express = require('express')
 const app = express()
 
-// app.use(basicAuth)
+
 app.use('/tokens', tokenRouter)
+app.use(tokenAuth)
 app.use(basicAuth(findUser.byCredentials))
-
-// const express = require('express')
-// const app = express()
-
-// app.get('/', (req, res) => {
-//   res.send('hello world')
-// })
 
 app.listen(3000)
 
