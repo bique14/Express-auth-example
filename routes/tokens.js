@@ -23,13 +23,12 @@ const createTokenRoute = (req, res, next) => {
 
   if (user) {
     const token = createToken(user)
-    // res.token = token
     console.log('[tokens]', token)
-    res.status(201)
+    res.status(200)
     res.send(token)
-    next()
   } else {
-    res.sendStatus(422)
+    res.send(`Invalid username or password`)
+    return;
   }
 }
 
