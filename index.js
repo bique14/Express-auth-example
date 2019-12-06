@@ -4,11 +4,13 @@
 // const findUser = require('./lib/find-user')
 // const tokenRouter = require('./routes/tokens')
 const fireAuth = require('./lib/fire-auth')
+const cors = require('cors')
 
 const express = require('express')
 const app = express()
 
 
+app.use(cors())
 app.use(fireAuth)
 // app.use('/tokens', tokenRouter)
 // app.use(tokenAuthRouter)
